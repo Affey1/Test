@@ -139,7 +139,8 @@ function changeTheme(theme) {
 
 // Função para redirecionar e salvar a cor
 function redirectToSite() {
-    const currentColor = document.body.style.background; // Obtém a cor atual
+    const currentColor = document.body.style.backgroundColor; // Obtém a cor atual
     localStorage.setItem('corSelecionada', currentColor); // Salva a cor no localStorage
-    window.location.href = 'file:///C:/Users/ruhtr/Desktop/Desktop/affey/index.html'; // Substitua pela URL desejada
+    window.location.href = 'file:///C:/Users/ruhtr/Desktop/Desktop/affey/index1.html'; // Caminho ajustado para index1.html
 }
+
