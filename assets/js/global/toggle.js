@@ -141,6 +141,6 @@ function changeTheme(theme) {
 function redirectToSite() {
     const currentColor = document.body.style.backgroundColor; // Obtém a cor atual
     localStorage.setItem('corSelecionada', currentColor); // Salva a cor no localStorage
-    window.location.href = 'file:///C:/Users/ruhtr/Desktop/Desktop/affey/index1.html'; // Caminho ajustado para index1.html
+    window.location.href = 'https://affey1.github.io/Test/index1.html#'; // Substitua pela URL desejada
 }
 
