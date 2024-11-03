@@ -31,18 +31,21 @@ let isDragging = false;
 let clickCount = 0;
 let clickTimeout;
 
-// Função para mudar o fundo e a imagem
+// Função para mudar o fundo, a imagem e salvar o poema
 function changeBackgroundColorAndImage(position) {
     const index = markerPositions.indexOf(position);
     if (index !== -1) {
         const selectedColor = gradients[index];
+        const selectedPoem = poems[index];
+
         document.body.style.background = selectedColor; // Muda o fundo do body
         document.querySelector('.nav-list').style.background = selectedColor; // Altera a cor da nav-list
         sliderImage.src = images[index];
-        poemDisplay.innerText = poems[index];
+        poemDisplay.innerText = selectedPoem;
 
-        // Salva a cor selecionada no localStorage
+        // Salva a cor e o poema selecionados no localStorage
         localStorage.setItem('corSelecionada', selectedColor);
+        localStorage.setItem('poemaSelecionado', selectedPoem);
     }
 }
 
@@ -95,7 +98,7 @@ slider.addEventListener('mousedown', (e) => {
         }
     };
 
-    const mouseUpHandler = (e) => {
+    const mouseUpHandler = () => {
         isDragging = false;
         moveSliderToClosestMarker(slider.offsetLeft);
         document.removeEventListener('mousemove', mouseMoveHandler);
@@ -110,21 +113,22 @@ slider.addEventListener('contextmenu', (e) => {
     e.preventDefault();
 });
 
-// Inicializa a posição do slider
+// Inicializa a posição do slider e exibe o poema salvo
 document.addEventListener('DOMContentLoaded', () => {
     // Mover o slider para a posição do primeiro marcador por padrão
     changeBackgroundColorAndImage(markerPositions[0]);
 
-    // Aplicar a cor armazenada do localStorage se existir
+    // Aplicar a cor e o poema armazenados no localStorage se existirem
     const savedColor = localStorage.getItem('corSelecionada');
+    const savedPoem = localStorage.getItem('poemaSelecionado');
+
     if (savedColor) {
         document.body.style.background = savedColor;
-        document.querySelector('.nav-list').style.background = savedColor; // Aplica a cor ao nav-list
-    } else {
-        // Se não houver cor salva, defina uma cor padrão
-        const defaultColor = '#FFFFFF'; // Cor padrão
-        document.body.style.background = defaultColor;
-        document.querySelector('.nav-list').style.background = defaultColor; // Cor padrão para nav-list
+        document.querySelector('.nav-list').style.background = savedColor;
+    }
+
+    if (savedPoem) {
+        poemDisplay.innerText = savedPoem;
     }
 });
 
