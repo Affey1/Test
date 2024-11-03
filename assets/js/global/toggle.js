@@ -21,8 +21,12 @@ const images = [
 ];
 
 const poems = [
-    // Adicione seus poemas aqui
+    'O frio envolve a terra, \num suspiro da neve, \numa dança de calma e paz.', // Inverno
+    'Folhas caem suavemente, \num tapete de tons dourados, \noutrora verde, agora sereno.', // Outono
+    'Flores surgem no campo, \num arco-íris de vida, \num renascimento colorido.', // Primavera
+    'O sol brilha intenso, \num calor que abraça, \numa celebração de luz.', // Verão
 ];
+
 
 let isDragging = false;
 let clickCount = 0;
@@ -32,14 +36,9 @@ let clickTimeout;
 function changeBackgroundColorAndImage(position) {
     const index = markerPositions.indexOf(position);
     if (index !== -1) {
-        const selectedColor = gradients[index];
-        document.body.style.background = selectedColor; // Muda o fundo do body
-        document.querySelector('.nav-list').style.background = selectedColor; // Altera a cor da nav-list
+        document.body.style.background = gradients[index];
         sliderImage.src = images[index];
         poemDisplay.innerText = poems[index];
-
-        // Salva a cor selecionada no localStorage
-        localStorage.setItem('corSelecionada', selectedColor);
     }
 }
 
@@ -111,18 +110,6 @@ slider.addEventListener('contextmenu', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
     // Mover o slider para a posição do primeiro marcador por padrão
     changeBackgroundColorAndImage(markerPositions[0]);
-
-    // Aplicar a cor armazenada do localStorage se existir
-    const savedColor = localStorage.getItem('corSelecionada');
-    if (savedColor) {
-        document.body.style.background = savedColor;
-        document.querySelector('.nav-list').style.background = savedColor; // Aplica a cor ao nav-list
-    } else {
-        // Se não houver cor salva, defina uma cor padrão
-        const defaultColor = '#FFFFFF'; // Cor padrão
-        document.body.style.background = defaultColor;
-        document.querySelector('.nav-list').style.background = defaultColor; // Cor padrão para nav-list
-    }
 });
 
 // Lógica do toggle
