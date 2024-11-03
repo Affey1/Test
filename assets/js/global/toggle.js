@@ -31,7 +31,7 @@ let isDragging = false;
 let clickCount = 0;
 let clickTimeout;
 
-// Função para mudar o fundo, a imagem e salvar o poema
+// Função para mudar o fundo e a imagem
 function changeBackgroundColorAndImage(position) {
     const index = markerPositions.indexOf(position);
     if (index !== -1) {
@@ -41,11 +41,7 @@ function changeBackgroundColorAndImage(position) {
         document.body.style.background = selectedColor; // Muda o fundo do body
         document.querySelector('.nav-list').style.background = selectedColor; // Altera a cor da nav-list
         sliderImage.src = images[index];
-        poemDisplay.innerText = selectedPoem;
-
-        // Salva a cor e o poema selecionados no localStorage
-        localStorage.setItem('corSelecionada', selectedColor);
-        localStorage.setItem('poemaSelecionado', selectedPoem);
+        poemDisplay.innerText = selectedPoem; // Exibe o poema selecionado
     }
 }
 
@@ -113,23 +109,10 @@ slider.addEventListener('contextmenu', (e) => {
     e.preventDefault();
 });
 
-// Inicializa a posição do slider e exibe o poema salvo
+// Inicializa a posição do slider
 document.addEventListener('DOMContentLoaded', () => {
     // Mover o slider para a posição do primeiro marcador por padrão
     changeBackgroundColorAndImage(markerPositions[0]);
-
-    // Aplicar a cor e o poema armazenados no localStorage se existirem
-    const savedColor = localStorage.getItem('corSelecionada');
-    const savedPoem = localStorage.getItem('poemaSelecionado');
-
-    if (savedColor) {
-        document.body.style.background = savedColor;
-        document.querySelector('.nav-list').style.background = savedColor;
-    }
-
-    if (savedPoem) {
-        poemDisplay.innerText = savedPoem;
-    }
 });
 
 // Lógica do toggle
@@ -144,9 +127,7 @@ function changeTheme(theme) {
     document.body.className = theme; // Altera a classe do body conforme necessário
 }
 
-// Função para redirecionar e salvar a cor
+// Função para redirecionar
 function redirectToSite() {
-    const currentColor = document.body.style.backgroundColor; // Obtém a cor atual
-    localStorage.setItem('corSelecionada', currentColor); // Salva a cor no localStorage
     window.location.href = 'https://affey1.github.io/Test/index1.html#'; // Substitua pela URL desejada
 }
