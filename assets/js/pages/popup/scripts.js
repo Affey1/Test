@@ -37,12 +37,6 @@ let isDragging = false;
 let clickCount = 0;
 let clickTimeout;
 
-// Função para salvar a estação escolhida no localStorage
-function selecionarOpcao(index) {
-    const corEscolhida = gradients[index];
-    localStorage.setItem('corSelecionada', corEscolhida); // Salva a cor selecionada
-}
-
 // Função para mudar a cor de fundo, imagem e poema do slider
 function changeBackgroundColorAndImage(position) {
     const index = markerPositions.indexOf(position);
@@ -50,8 +44,6 @@ function changeBackgroundColorAndImage(position) {
         document.body.style.background = gradients[index];
         sliderImage.src = images[index];
         poemDisplay.innerText = poems[index];
-        
-        selecionarOpcao(index); // Salva a cor no localStorage ao trocar de estação
     }
 }
 
@@ -68,7 +60,6 @@ function moveSliderToClosestMarker(newLeft) {
 
     slider.style.left = (closestMarker - sliderWidth / 2) + 'px';
     changeBackgroundColorAndImage(closestMarker); // Muda a cor e imagem ao grudar no marcador
-    localStorage.setItem('sliderPosition', closestMarker); // Salva a posição no localStorage
 }
 
 // Função para arrastar o slider
@@ -123,17 +114,11 @@ slider.addEventListener('contextmenu', (e) => {
     e.preventDefault();
 });
 
-// Inicializa a posição do slider e aplica a cor correspondente
+// Inicializa a posição do slider
 function initSliderPosition() {
-    const savedPosition = localStorage.getItem('sliderPosition');
-
-    if (savedPosition) {
-        moveSliderToClosestMarker(parseInt(savedPosition));
-    } else {
-        const initialPosition = markerPositions[0];
-        slider.style.left = (initialPosition - slider.offsetWidth / 2) + 'px';
-        changeBackgroundColorAndImage(initialPosition);
-    }
+    const initialPosition = markerPositions[0];
+    slider.style.left = (initialPosition - slider.offsetWidth / 2) + 'px';
+    changeBackgroundColorAndImage(initialPosition);
 }
 
 // Inicializa a posição do slider ao carregar a página
